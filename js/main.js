@@ -3,10 +3,15 @@ let mission, period; /* переменные: цель и за какой пер
 
 money = 15000; 
 income = "фриланс";
-addExpenses = "интернет, такси, коммуналка, кофе, вкусняхи и прочая ересь";
+addExpenses = "Интернет, Такси, Коммуналка, кОфе, Вкукусняхи и прочая ересь";
 deposit = true;
 mission = 1000000;
 period = 12;
 
-alert("Сообщение с любым текстом");
-console.log("Сообщение с любым текстом в консоли");
+console.log(`Тип переменной money: ${typeof money}`);
+console.log(`Тип переменной income: ${typeof income}`);
+console.log(`Тип переменной deposit: ${typeof deposit}`);
+console.log(`Длина строки addExpenses: ${addExpenses.length}`);
+console.log(`Период равен: ${period} месяцев`);
+console.log(`Цель: заработать ${mission} рублей`);
+console.log("addExpenses", addExpenses.toLowerCase().split(','));
