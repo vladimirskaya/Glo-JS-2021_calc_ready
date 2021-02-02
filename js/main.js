@@ -23,11 +23,7 @@ addExpenses = (prompt("Перечислите возможные расходы 
 console.log(addExpenses);
 
 // Присвоение булевого значения в соответствии с ответом от пользователя
-deposit = prompt('Есть ли у вас депозит в банке?');
-if (!((deposit.toLowerCase() == 'да')||(deposit.toLowerCase() == 'yes'))) {
-    deposit = false;  
-    console.log(deposit);                         
-    }
+deposit = confirm('Есть ли у вас депозит в банке?');                        
 
 // Дополнительные статьи расходов
 for (let i=0; i<2; i++) {
