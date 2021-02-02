@@ -9,20 +9,25 @@ const period = 12;
 let budgetMonth, budgetDay; /* переменные бюджета по перидам */
 // Дополнительные статьи расходов
 let exp1 = prompt("Введите обязательную статью расходов?");
-let cost1 = prompt("Во сколько это обойдется?");
+let cost1 = +prompt("Во сколько это обойдется?");
 let exp2 = prompt("Введите обязательную статью расходов?");
-let cost2 = prompt("Во сколько это обойдется?");
+let cost2 = +prompt("Во сколько это обойдется?");
 
-//Блок описания функций
 
+//                  Блок описания функций
 //Функция возвращает сумму всех обязательных расходов за месяц
-function getExpensesMonth(a,b){
+function getExpensesMonth(a, b){
     return a + b;
 }
 
 //Функция возвращает Накопления за месяц (Доходы минус расходы)
-function getAccumulatedMonth(mon,getExp){
-    return mon - getExp();
+function getAccumulatedMonth(mon, getExp){
+    return mon - getExp;
+}
+
+function getTargetMonth(mis, accMon){
+    return Math.ceil(mis / accMon);
+
 }
 
 console.log(`Тип переменной money: ${typeof money}`);
@@ -34,10 +39,10 @@ console.log(`Цель: заработать ${mission} рублей`);
 console.log(addExpenses.toLowerCase().split(', '));
 
 // Расчет бюджета по периодам, дополнительно нахождение количества месяцев для достижения заданной цели
-let accumulatedMonth = getAccumulatedMonth(money, getExpensesMonth, cost1, cost2);
-budgetMonth = money - cost1 - cost2;
+let accumulatedMonth = getAccumulatedMonth(money, getExpensesMonth(cost1, cost2));
+console.log(accumulatedMonth);
 console.log("Бюджет на месяц:", budgetMonth );
-console.log(`Цель будет достигнута за ${Math.ceil(mission / budgetMonth)} месяцев(-а)`);
+console.log(`Цель будет достигнута за ${getTargetMonth(mission, accumulatedMonth)} месяцев(-а)`);
 budgetDay = Math.floor(budgetMonth / 30);
 console.log("Бюджет на день: ", budgetDay);
 
