@@ -25,6 +25,7 @@ function getAccumulatedMonth(mon, getExp){
     return mon - getExp;
 }
 
+//Функция, подсчитывает за какой период будет достигнута цель
 function getTargetMonth(mis, accMon){
     return Math.ceil(mis / accMon);
 }
@@ -38,13 +39,14 @@ showTypeOf(money);
 showTypeOf(income);
 showTypeOf(deposit);
 
-console.log(`Длина строки addExpenses: ${addExpenses.length}`);
-console.log(`Период равен: ${period} месяцев`);
-console.log(`Цель: заработать ${mission} рублей`);
-console.log(addExpenses.toLowerCase().split(', '));
-
 // Расчет бюджета по периодам, дополнительно нахождение количества месяцев для достижения заданной цели
-let accumulatedMonth = getAccumulatedMonth(money, getExpensesMonth(cost1, cost2));
+let expensesMonth = getExpensesMonth(cost1,cost2); // сумма обязательных расходов
+//переменной expensesMonth нет в задании, но ее же можно ввести, чтоб не повторять вызов фукнции?
+
+console.log(expensesMonth); 
+console.log(addExpenses.toLowerCase().split(', ')); // массив доп расходов
+
+let accumulatedMonth = getAccumulatedMonth(money, expensesMonth); // доход за месяц
 console.log("Доход за месяц:", accumulatedMonth );
 console.log(`Цель будет достигнута за ${getTargetMonth(mission, accumulatedMonth)} месяцев(-а)`);
 budgetDay = Math.floor( accumulatedMonth / 30);
