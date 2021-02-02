@@ -1,16 +1,13 @@
 'use strict'
 
-let money, income, addExpenses, deposit; /* переменные по доходам и расходам */
-let mission, period; /* переменные: цель и за какой период */
+let money = 45000;  // Доход за месяц
+let income = "фриланс";
+let addExpenses = "Интернет, Такси, Коммуналка, кОфе, Вкукусняхи и прочая ересь";
+let deposit = true;
+let mission = 1000000;
+let period = 12;
 let budgetMonth, budgetDay; /* переменные бюджета по перидам */
-let exp1, exp2, cost1, cost2;  /* дополнитеьные статьи расходов */ 
-
-money = 45000;  // Доход за месяц
-income = "фриланс";
-addExpenses = "Интернет, Такси, Коммуналка, кОфе, Вкукусняхи и прочая ересь";
-deposit = true;
-mission = 1000000;
-period = 12;
+let exp1, exp2, cost1, cost2;  /* дополнитеьные статьи расходов */
 
 console.log(`Тип переменной money: ${typeof money}`);
 console.log(`Тип переменной income: ${typeof income}`);
