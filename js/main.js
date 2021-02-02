@@ -13,6 +13,18 @@ let cost1 = prompt("Во сколько это обойдется?");
 let exp2 = prompt("Введите обязательную статью расходов?");
 let cost2 = prompt("Во сколько это обойдется?");
 
+//Блок описания функций
+
+//Функция возвращает сумму всех обязательных расходов за месяц
+function getExpensesMonth(a,b){
+    return a + b;
+}
+
+//Функция возвращает Накопления за месяц (Доходы минус расходы)
+function getAccumulatedMonth(mon,getExp){
+    return mon - getExp();
+}
+
 console.log(`Тип переменной money: ${typeof money}`);
 console.log(`Тип переменной income: ${typeof income}`);
 console.log(`Тип переменной deposit: ${typeof deposit}`);
@@ -22,6 +34,7 @@ console.log(`Цель: заработать ${mission} рублей`);
 console.log(addExpenses.toLowerCase().split(', '));
 
 // Расчет бюджета по периодам, дополнительно нахождение количества месяцев для достижения заданной цели
+let accumulatedMonth = getAccumulatedMonth(money, getExpensesMonth, cost1, cost2);
 budgetMonth = money - cost1 - cost2;
 console.log("Бюджет на месяц:", budgetMonth );
 console.log(`Цель будет достигнута за ${Math.ceil(mission / budgetMonth)} месяцев(-а)`);
