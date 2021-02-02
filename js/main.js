@@ -43,7 +43,7 @@ let accumulatedMonth = getAccumulatedMonth(money, getExpensesMonth(cost1, cost2)
 console.log(accumulatedMonth);
 console.log("Бюджет на месяц:", budgetMonth );
 console.log(`Цель будет достигнута за ${getTargetMonth(mission, accumulatedMonth)} месяцев(-а)`);
-budgetDay = Math.floor(budgetMonth / 30);
+budgetDay = Math.floor( accumulatedMonth / 30);
 console.log("Бюджет на день: ", budgetDay);
 
 //Вывод информации для пользователя
