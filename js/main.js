@@ -21,17 +21,16 @@ let cost2 = +prompt("Во сколько это обойдется?");*/
 
 
 //                  Блок описания функций
-//Функция возвращает сумму всех обязательных расходов за месяц
+// Функция запроса месячного дохода
 let start = function(){
     do {
         money = prompt("Ваш месячный доход?");
-    } while (!isNumber(money));
-        
+    } while (!isNumber(money)); 
 }
 
 start(); 
 
-// Функция расчета обязательных платежей
+//Функция возвращает сумму всех обязательных расходов за месяц
 function getExpensesMonth(){
     let a, i = 0,
         sum = 0;
@@ -44,7 +43,6 @@ function getExpensesMonth(){
             sum += parseFloat(a);
         }
     } while (i < 2);
-    console.log(sum);
     return sum;
 }
 
@@ -55,7 +53,6 @@ function getAccumulatedMonth(mon, getExp){
 
 //Функция, подсчитывает за какой период будет достигнута цель
 function getTargetMonth(mis, accMon){
-    console.log("Данные переданы", mis, accMon);
     return Math.ceil(mis / accMon);
 }
 
