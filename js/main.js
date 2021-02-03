@@ -39,11 +39,9 @@ function getExpensesMonth(){
         expenses[i] = prompt("Введите обязательную статью расходов?");
         do {
             a = prompt("Во сколько это обойдется?");
-            if (isNumber(a)) {
-                //console.log("В условие вошла");
-                sum += parseFloat(a);
             } 
-        } while (!isNumber(a));
+        while (!isNumber(a));
+        sum += parseFloat(a)
     }
     console.log(expenses, sum);  
     return sum;
