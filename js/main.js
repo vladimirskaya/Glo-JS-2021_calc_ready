@@ -7,6 +7,7 @@ let isNumber = function(n) {
 
 let money,
     income = "фриланс",
+    expenses = [],
     addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую"),
     deposit = confirm('Есть ли у вас депозит в банке?'),
     mission = 1000000,
@@ -32,19 +33,21 @@ start();
 
 //Функция возвращает сумму всех обязательных расходов за месяц
 function getExpensesMonth(){
-    let a, i = 0,
+    let a, // переменая необходимая для выхода из цикла
         sum = 0;
-    do {
-        a = prompt("Во сколько это обойдется?");
-        //console.log("В цикл зашла");
-        if (isNumber(a)) {
-            //console.log("В условие вошла");
-            i += 1;
-            sum += parseFloat(a);
-        }
-    } while (i < 2);
+    for (let i = 0; i < 2; i++) {
+        expenses[i] = prompt("Введите обязательную статью расходов?");
+        do {
+            a = prompt("Во сколько это обойдется?");
+            if (isNumber(a)) {
+                //console.log("В условие вошла");
+                sum += parseFloat(a);
+            } 
+        } while (!isNumber(a));
+    }
+    console.log(expenses, sum);  
     return sum;
-}
+};
 
 //Функция возвращает Накопления за месяц (Доходы минус расходы)
 function getAccumulatedMonth(mon, getExp){
