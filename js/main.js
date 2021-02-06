@@ -69,7 +69,7 @@ let appData = {
 appData.asking();
 appData.getExpensesMonth();
 appData.getBudget();
-appData.getTargetMonth();
+//appData.getTargetMonth();
 console.log("Расходы за месяц: ", appData.expenses);  
 console.log("Цель будет достигнута за ", appData.getTargetMonth(), "месяцев(-а)");
 console.log(appData.getStatusIncome());
