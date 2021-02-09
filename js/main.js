@@ -134,5 +134,4 @@ let addExpensesOut = function(arr){
 	return addExpArr.join(', ');
 }
 
-console.log("Возможные расходы (addExpenses): \n", addExpensesOut(appData.addExpenses));
-
+console.log(`Возможные расходы (addExpenses):\n${addExpensesOut(appData.addExpenses)}`);
