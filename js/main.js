@@ -1,5 +1,34 @@
 'use strict'
 
+// УРОК 9. ПОЛУЧЕНИЕ ЭЛЕМЕНТОВ С ДОМ-ДЕРЕВА
+	//кнопка Рассчитать через id
+	let btnCalc = document.getElementById('start'),
+
+	// кнопки "+" через Tag, каждая в свою переменную
+    btnIncomesAdd = document.getElementsByTagName('button')[0],
+    btnExpensesAdd = document.getElementsByTagName('button')[1],
+    
+	//чекбокс по id черех querySelector,
+    flagDeposit = document.querySelector('#deposit-check'),
+    
+	//поля для ввода возможных доходов (additional_income-item) через querySelectorAll
+    extraIncome1 = document.querySelectorAll('.additional_income-item')[0],
+    extraIncome2 = document.querySelectorAll('.additional_income-item')[1],
+    
+	/*каждый элемент в правой части программы черех класс(не через квериселектор),,
+    которые имеют в имени класса значение "-value", начиная с class="budget_day-value" ,
+    заканчивая class="target_month-value".*,*/
+    budgetDayOutput = document.getElementsByClassName('result-budget_day'),
+    expensesMonthOutput = document.getElementsByClassName('result-expenses_month'),
+    addIncomeOutput = document.getElementsByClassName('result-additional_income'),
+    addExpensesOut = document.getElementsByClassName('result-additional_expenses'),
+    incomePeriodOutput = document.getElementsByClassName('result-income_period'),
+    targetMonthOutput = document.getElementsByClassName('result-target_month'),
+    //console.log(budgetDayOutput, expensesMonthOutput, addIncomeOutput, addExpensesOut, incomePeriodOutput, targetMonthOutput);
+    
+    //поля ввода input с левой стороны  и не забудьте range
+    salaryInput = document.querySelector('.salary-amount'),
+    rangeInput = document.querySelector('.period-select');
 
 let money,
 	//Функция, проверяет является ли введенное значение числом
