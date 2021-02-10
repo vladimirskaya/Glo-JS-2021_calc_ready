@@ -1,17 +1,54 @@
 'use strict'
 
-//Функция, проверяет является ли введенное значение числом
-let money,
 
+let money,
+	//Функция, проверяет является ли введенное значение числом
 	isNumber = function(n) {
+		/*1. вычленяется флоат: возвращает или число, или NaN (если строка ) 
+		  2. проверка пол.рез-та на то, является ли он NaN: 
+							- если число, то возвращает false 
+							- если NaN, то возвращает true (т.е. если введена строка)
+		  3. происходит инверсия результата от п.2: если было введено число, то true. Если стркоа, то false.
+		  4. isFinite() - конечное ли число: возвращает true, если да, или false, если бесконечное
+		  5. && - возвращает первое ложное значение. Если все истинны, то возвращает последнее true.
+		  Т.е. если было введено число, то возврат true */
 		return !isNaN(parseFloat(n)) && isFinite(n);
     },
-    
+	//Функция, проверяет является ли число больше нуля
+	isNumberValid = function(x){
+		/*1. если значение - число, то
+		  2. возвращает true, если число больше 0. И false - если равно 0 или меньше */
+		  if (isNumber(x)) {
+			return (parseFloat(x) > 0);
+		  }
+	},
+	
+	isValidString = function(s){
+		//console.log("проверка валидности строкового значения.", s);
+		if (s){
+			//console.log("это не пустая строка");
+			if (isNumber(s)) {
+				//console.log("но это число");
+				return false;
+			} else {
+				console.log("а вот это нормальная строка",s);
+				s = s.trim();
+				return s ; 
+				/* возвращает к инверсии, следовательно, строка преобразуется в булево значение:
+							если таки пустая, то false, если непустая и нормальная, то true*/
+			}
+		} else {
+			//console.log("Пустая строка");
+			return false;
+		}
+	},
+
 	start = function(){
 		do {
 			money = prompt("Ваш месячный доход?");
-		} while (!isNumber(money)); 
+		} while (!isNumberValid(money)); 
 	};
+	
 	
 start(); 
 
@@ -32,12 +69,11 @@ let appData = {
 			if (confirm("Есть ли у вас дополнительный заработок?")) {
 				do {
 					itemIncome = prompt("Какой у вас допольнительный заработок?", "Таксую");
-					//console.log(!isNumber(itemIncome),  itemIncome !== '', itemIncome !== null);
-				} while (!(!isNumber(itemIncome) && itemIncome !== '' && itemIncome !== null));
+				} while (!isValidString(itemIncome));
 				do {
 					cashIncome = prompt("Сколько в месяц вы на этом зарабатываете?");
 					//console.log(cashIncome);
-				} while (!isNumber(cashIncome));
+				} while (!isNumberValid(cashIncome));
 				appData.income[itemIncome] = cashIncome;
 			}
 
@@ -51,10 +87,10 @@ let appData = {
 				do {
 					exp = prompt("Введите обязательную статью расходов?");
 					//console.log(!isNumber(exp), exp !== '', exp !== null);
-				} while (!(!isNumber(exp) && exp !== '' && exp !== null));
+				} while (!isValidString(exp));
 				do {
 					a = prompt("Во сколько это обойдется?");
-				} while (!isNumber(a));
+				} while (!isNumberValid(a));
 				appData.expenses[exp] = parseFloat(a);
 				//console.log("asking  : ", appData.expenses[exp]);
 			};
@@ -90,13 +126,13 @@ let appData = {
 		getInfoDeposit: function(){
 			if (appData.deposit){
 				do {
-					appData.procentDeposit = ("Какой годовой процент", 10);
-					//console.log("!isNumber(appData.procentDeposit - ", !isNumber(appData.procentDeposit));
-				} while (!isNumber(appData.procentDeposit));
+					appData.procentDeposit = parseFloat(prompt("Какой годовой процент", 10));
+					//console.log("!isNumberValid(appData.procentDeposit - ", !isNumberValid(appData.procentDeposit));
+				} while (!isNumberValid(appData.procentDeposit));
 				do {
 					appData.moneyDeposit = prompt("Какая сумма заложена?", 10000);
-					//console.log("!isNumber(appData.moneyDeposit - ", !isNumber(appData.moneyDeposit));
-				} while (!isNumber(appData.moneyDeposit));	
+					//console.log("!isNumberValid(appData.moneyDeposit - ", !isNumberValid(appData.moneyDeposit));
+				} while (!isNumberValid(appData.moneyDeposit));	
 			}
 		},
 		calcSaveMoney: function(){
