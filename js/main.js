@@ -21,7 +21,7 @@
     budgetDayOutput = document.getElementsByClassName('result-budget_day'),
     expensesMonthOutput = document.getElementsByClassName('result-expenses_month'),
     addIncomeOutput = document.getElementsByClassName('result-additional_income'),
-    addExpensesOut = document.getElementsByClassName('result-additional_expenses'),
+    addExpensesOutput = document.getElementsByClassName('result-additional_expenses'),
     incomePeriodOutput = document.getElementsByClassName('result-income_period'),
     targetMonthOutput = document.getElementsByClassName('result-target_month'),
     //console.log(budgetDayOutput, expensesMonthOutput, addIncomeOutput, addExpensesOut, incomePeriodOutput, targetMonthOutput);
