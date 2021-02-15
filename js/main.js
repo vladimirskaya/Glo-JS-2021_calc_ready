@@ -1,9 +1,9 @@
 'use strict'
 
-let btnCalc = document.getElementById('start'),
-    btnIncomesAdd = document.getElementsByTagName('button')[0],
-    btnExpensesAdd = document.getElementsByTagName('button')[1],
-    flagDeposit = document.querySelector('#deposit-check'),
+let btnStart = document.getElementById('start'),
+    btnIncomesPlus = document.getElementsByTagName('button')[0],
+    btnExpensesPlus = document.getElementsByTagName('button')[1],
+    flagDeposit  = document.querySelector('#deposit-check'),
     extraIncome1 = document.querySelectorAll('.additional_income-item')[0],
     extraIncome2 = document.querySelectorAll('.additional_income-item')[1],
     budgetDayOutput = document.getElementsByClassName('result-budget_day'),
@@ -12,20 +12,18 @@ let btnCalc = document.getElementById('start'),
     addExpensesOutput = document.getElementsByClassName('result-additional_expenses'),
     incomePeriodOutput = document.getElementsByClassName('result-income_period'),
     targetMonthOutput = document.getElementsByClassName('result-target_month'),
-    salaryInput = document.querySelector('.salary-amount'),
-    rangeInput = document.querySelector('.period-select');
+    salaryInput = document.querySelector('.salary-amount'),  // salaryAmount
+	incomeTitle = document.querySelector('.income-title'), // добавлены из видео Практика 11 урока
+	incomeAmount = document.querySelector('.income-amount'), // добавлены из видео Практика 11 урока
+	expensesTitle = document.querySelector('.expenses-title'), // добавлены из видео Практика 11 урока
+	expensesAmount = document.querySelector('.expenses-amount'), // добавлены из видео Практика 11 урока
+	additionalExpenses = document.querySelector('.additional_expenses'), // добавлены из видео Практика 11 урока
+    peroidRangeSelect = document.querySelector('.period-select'); // periodSelect
 
 let money,
 	//Функция, проверяет является ли введенное значение числом
 	isNumber = function(n) {
-		/*1. вычленяется флоат: возвращает или число, или NaN (если строка ) 
-		  2. проверка пол.рез-та на то, является ли он NaN: 
-							- если число, то возвращает false 
-							- если NaN, то возвращает true (т.е. если введена строка)
-		  3. происходит инверсия результата от п.2: если было введено число, то true. Если стркоа, то false.
-		  4. isFinite() - конечное ли число: возвращает true, если да, или false, если бесконечное
-		  5. && - возвращает первое ложное значение. Если все истинны, то возвращает последнее true.
-		  Т.е. если было введено число, то возврат true */
+Х		
 		return !isNaN(parseFloat(n)) && isFinite(n);
     },
 	//Функция, проверяет является ли число больше нуля
@@ -55,12 +53,6 @@ let money,
 			//console.log("Пустая строка");
 			return false;
 		}
-	},
-
-	start = function(){
-		do {
-			money = prompt("Ваш месячный доход?");
-		} while (!isNumberValid(money)); 
 	};
 	
 	
@@ -76,6 +68,11 @@ let appData = {
 		moneyDeposit: 0,
 		mission: 100000,
 		period: 3,
+		start: function(){
+			do {
+				money = prompt("Ваш месячный доход?");
+			} while (!isNumberValid(money)); 
+		},
 		asking: function(){
 			let	exp, a,
 				addExpenses, itemIncome, cashIncome ;
