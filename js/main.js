@@ -23,13 +23,10 @@ let btnStart = document.getElementById('start'),
 let money,
 	//Функция, проверяет является ли введенное значение числом
 	isNumber = function(n) {
-Х		
 		return !isNaN(parseFloat(n)) && isFinite(n);
     },
 	//Функция, проверяет является ли число больше нуля
 	isNumberValid = function(x){
-		/*1. если значение - число, то
-		  2. возвращает true, если число больше 0. И false - если равно 0 или меньше */
 		  if (isNumber(x)) {
 			return (parseFloat(x) > 0);
 		  }
@@ -46,19 +43,14 @@ let money,
 				console.log("а вот это нормальная строка",s);
 				s = s.trim();
 				return s ; 
-				/* возвращает к инверсии, следовательно, строка преобразуется в булево значение:
-							если таки пустая, то false, если непустая и нормальная, то true*/
 			}
 		} else {
 			//console.log("Пустая строка");
 			return false;
 		}
-	};
-	
-	
-start(); 
+	},
 
-let appData = {
+	appData = {
 		income: {},
 		addIncome: {},
 		expenses: {},
@@ -72,6 +64,10 @@ let appData = {
 			do {
 				money = prompt("Ваш месячный доход?");
 			} while (!isNumberValid(money)); 
+			
+			/*appData.asking();
+			appData.getExpensesMonth();
+			appData.getBudget();*/
 		},
 		asking: function(){
 			let	exp, a,
@@ -150,35 +146,13 @@ let appData = {
 			return appData.budgetMonth * appData.period
 		}
 }
-appData.asking();
-appData.getExpensesMonth();
-appData.getBudget();
-console.log("Расходы за месяц: ", appData.expenses);  
-console.log("Цель будет достигнута за ", appData.getTargetMonth(), "месяцев(-а)");
-console.log(appData.getStatusIncome());
 
-/*console.log("Наша программа включает в себя данные: ");
-for (let key in appData) {
-	console.log(key, ' : ', appData[key]);
-}*/
+btnStart.addEventListener('click', appData.start); 
 
-appData.getInfoDeposit();
-console.log(appData.procentDeposit, appData.moneyDeposit, appData.calcSaveMoney);
 
-// функция вывода данных массива в потребном виде
-let addExpensesOut = function(arr){
-	let i =0,
-		addExpArr =[]; // пустой массив, в который записываются данные в корректном виде
-	do {
-		arr[i] = arr[i].trim(); // удаляем лишние пробелы
-		if (arr[i] === '') {  // проверка на пустое значение, если ""
-			arr[i] = '-';
-		}
-		arr[i] = arr[i][0].toUpperCase() + arr[i].slice(1); // преобразование элемента
-		addExpArr[i] = arr[i];	 // запись элемента в новый массив
-		i++;
-		} while (i < arr.length); 
-	return addExpArr.join(', ');
+
+if (appData.getTargetMonth() > 0) {
+	console.log("Цель будет достигнута за ", appData.getTargetMonth(), "месяцев(-а)");
+} else {
+	console.log(appData.getStatusIncome());
 }
-
-console.log(`Возможные расходы (addExpenses):\n${addExpensesOut(appData.addExpenses)}`);
