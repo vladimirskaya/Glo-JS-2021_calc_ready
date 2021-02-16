@@ -42,7 +42,7 @@ let	isNumber = function(n) {
 				//console.log("но это число");
 				return false;
 			} else {
-				console.log("а вот это нормальная строка",s);
+				//console.log("а вот это нормальная строка",s);
 				s = s.trim();
 				return s ; 
 			}
@@ -228,7 +228,7 @@ let	isNumber = function(n) {
 		changeRange: function(){
 			let period = document.querySelector('.period');
 			period.children[2].innerHTML = periodSelect.value;
-			appData.showResult();
+			//appData.showResult();
 			//return periodSelect.value;
 		},
 
