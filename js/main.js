@@ -12,7 +12,7 @@ let btnStart = document.getElementById('start'),
     addIncomeValue = document.getElementsByClassName('result-total additional_income-value')[0],
     addExpensesValue = document.getElementsByClassName('result-total additional_expenses-value')[0],
     incomePeriodOutput = document.getElementsByClassName('result-income_period'),
-    targetMonthOutput = document.getElementsByClassName('result-target_month'),
+    targetMonthValue = document.getElementsByClassName('result-total target_month-value')[0],
     salaryInput = document.querySelector('.salary-amount'),  // salaryAmount
 	incomeTitle = document.querySelector('.income-title'), // добавлены из видео Практика 11 урока
 	incomeAmount = document.querySelector('.income-amount'), // добавлены из видео Практика 11 урока
@@ -20,8 +20,8 @@ let btnStart = document.getElementById('start'),
 	expensesItems = document.querySelectorAll('.expenses-items'), // delete
 	additionalExpenses = document.querySelector('.additional_expenses'), // добавлены из видео Практика 11 урока
     periodRangeSelect = document.querySelector('.period-select'),
-	additionalExpensesItem = document.querySelector('.additional_expenses-item'); // periodSelect
-
+	additionalExpensesItem = document.querySelector('.additional_expenses-item'), // periodSelect
+	targetAmount = document.querySelector('.target-amount');
  //Функция, проверяет является ли введенное значение числом
 let	isNumber = function(n) {
 		return !isNaN(parseFloat(n)) && isFinite(n);
@@ -82,6 +82,7 @@ let	isNumber = function(n) {
 			expensesMonthOutput.value = appData.expensesMonth;
 			addExpensesValue.value = appData.addExpenses.join(', ');
 			addIncomeValue.value = appData.addIncome.join(', ');
+			targetMonthValue.value = appData.getTargetMonth();
 			console.log(addIncomeValue.value );
 		},
 
@@ -152,6 +153,7 @@ let	isNumber = function(n) {
 		budgetDay: 0,
 		budgetMonth: 0,
 		expensesMonth: 0,
+
 		getExpensesMonth: function(){			 	//высчитает свойство: сумма обяз.расходов за месяц
 			for (let key in appData.expenses) {
 				appData.expensesMonth += +appData.expenses[key];
@@ -162,7 +164,7 @@ let	isNumber = function(n) {
 			appData.budgetDay = Math.floor(appData.budgetMonth / 30);
 		},
 		getTargetMonth: function() {				//возвращает количество месяцев, нужное для достигнужения цели
-			return Math.ceil(appData.mission / appData.budgetMonth);
+			return Math.ceil( targetAmount.value / appData.budgetMonth);
 		},
 		getStatusIncome: function(){				//вывод информации для пользователя
 			if (appData.budgetDay >= 1200) {
@@ -188,7 +190,8 @@ let	isNumber = function(n) {
 				} while (!isNumberValid(appData.moneyDeposit));	
 			}
 		},
-		calcSaveMoney: function(){
+
+		calcPeriod: function(){
 			return appData.budgetMonth * appData.period
 		}
 }
