@@ -117,8 +117,8 @@ let	isNumber = function(n) {
 				incomePeriodValue.value = appData.calcPeriod();
 			};
 			findIncPerValue(); // расчет поля incomePeriodValue.value на 1 раз
-			periodSelect.addEventListener('input', findIncPerValue); // расчет поля incomePeriodValue.value на последующие разы
-			periodSelect.removeEventListener('input', findIncPerValue, false); // последующее удаление обработчика события
+			periodSelect.removeEventListener('input', findIncPerValue, false); // удаление предыдущего обработчика события
+			periodSelect.addEventListener('input', findIncPerValue); // расчет поля incomePeriodValue.value на последующие разы (добавляется обрабочик)
 		},
 
 		//methdd: add extra input by pushing button 'plus' -- lesson11
