@@ -10,7 +10,7 @@ let btnStart = document.getElementById('start'),
     budgetMonthOutput = document.getElementsByClassName('result-total budget_month-value')[0],
 	expensesMonthOutput = document.getElementsByClassName('result-total expenses_month-value')[0],
     addIncomeOutput = document.getElementsByClassName('result-additional_income'),
-    addExpensesOutput = document.getElementsByClassName('result-additional_expenses'),
+    addExpensesValue = document.getElementsByClassName('result-total additional_expenses-value')[0],
     incomePeriodOutput = document.getElementsByClassName('result-income_period'),
     targetMonthOutput = document.getElementsByClassName('result-target_month'),
     salaryInput = document.querySelector('.salary-amount'),  // salaryAmount
@@ -19,7 +19,8 @@ let btnStart = document.getElementById('start'),
 	expensesTitle = document.querySelector('.expenses-title'), // добавлены из видео Практика 11 урока
 	expensesItems = document.querySelectorAll('.expenses-items'), // delete
 	additionalExpenses = document.querySelector('.additional_expenses'), // добавлены из видео Практика 11 урока
-    periodRangeSelect = document.querySelector('.period-select'); // periodSelect
+    periodRangeSelect = document.querySelector('.period-select'),
+	additionalExpensesItem = document.querySelector('.additional_expenses-item'); // periodSelect
 
  //Функция, проверяет является ли введенное значение числом
 let	isNumber = function(n) {
@@ -71,7 +72,7 @@ let	isNumber = function(n) {
 
 			appData.getExpensesMonth();
 			appData.getBudget();
-
+			appData.getAddExpenses();
 			appData.showResult();
 		},
 
@@ -79,6 +80,7 @@ let	isNumber = function(n) {
 			budgetDayOutput.value = appData.budgetDay;
 			budgetMonthOutput.value = appData.budgetMonth;
 			expensesMonthOutput.value = appData.expensesMonth;
+			addExpensesValue.value = appData.addExpenses.join(', ');
 			console.log(budgetDayOutput.value, budgetMonthOutput.value, expensesMonthOutput.value );
 		},
 
@@ -104,7 +106,13 @@ let	isNumber = function(n) {
 		},
 
 		getAddExpenses: function(){
-			let add
+			let addExpenses = additionalExpensesItem.value.split();
+			addExpenses.forEach(function(item) {
+				if (item !== '') {
+					item = item.trim();
+					appData.addExpenses.push(item);
+				}
+			});
 		},
 
 		asking: function(){
