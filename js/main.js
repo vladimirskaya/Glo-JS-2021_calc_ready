@@ -112,10 +112,13 @@ let	isNumber = function(n) {
 			addExpensesValue.value = appData.addExpenses.join(', ');
 			addIncomeValue.value = appData.addIncome.join(', ');
 			targetMonthValue.value = appData.getTargetMonth();
-			incomePeriodValue.value = appData.calcPeriod();
 			
-			
-			//console.log(addIncomeValue.value );
+			let findIncPerValue = function(){
+				incomePeriodValue.value = appData.calcPeriod();
+			};
+			findIncPerValue(); // расчет поля incomePeriodValue.value на 1 раз
+			periodSelect.addEventListener('input', findIncPerValue); // расчет поля incomePeriodValue.value на последующие разы
+			periodSelect.removeEventListener('input', findIncPerValue, false); // последующее удаление обработчика события
 		},
 
 		//methdd: add extra input by pushing button 'plus' -- lesson11
