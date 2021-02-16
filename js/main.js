@@ -4,12 +4,12 @@ let btnStart = document.getElementById('start'),
     btnIncomesPlus = document.getElementsByTagName('button')[0],
     btnExpensesPlus = document.getElementsByTagName('button')[1],
     flagDeposit  = document.querySelector('#deposit-check'),
-    extraIncome1 = document.querySelectorAll('.additional_income-item')[0],
-    extraIncome2 = document.querySelectorAll('.additional_income-item')[1],
+    additionalIncomeItems = document.querySelectorAll('.additional_income-item'),
+    //extraIncome2 = document.querySelectorAll('.additional_income-item')[1],
     budgetDayOutput = document.getElementsByClassName('result-total budget_day-value')[0],
     budgetMonthOutput = document.getElementsByClassName('result-total budget_month-value')[0],
 	expensesMonthOutput = document.getElementsByClassName('result-total expenses_month-value')[0],
-    addIncomeOutput = document.getElementsByClassName('result-additional_income'),
+    addIncomeValue = document.getElementsByClassName('result-total additional_income-value')[0],
     addExpensesValue = document.getElementsByClassName('result-total additional_expenses-value')[0],
     incomePeriodOutput = document.getElementsByClassName('result-income_period'),
     targetMonthOutput = document.getElementsByClassName('result-target_month'),
@@ -53,13 +53,12 @@ let	isNumber = function(n) {
 
 	appData = {
 		income: {},
-		addIncome: {},
+		addIncome: [],
 		expenses: {},
 		addExpenses: [],
 		deposit: false,
 		procentDeposit: 0,
 		moneyDeposit: 0,
-		mission: 100000,
 		period: 3,
 		start: function(){
 			if (salaryInput.value === '') {
@@ -73,6 +72,7 @@ let	isNumber = function(n) {
 			appData.getExpensesMonth();
 			appData.getBudget();
 			appData.getAddExpenses();
+			appData.getAddIncome();
 			appData.showResult();
 		},
 
@@ -81,7 +81,8 @@ let	isNumber = function(n) {
 			budgetMonthOutput.value = appData.budgetMonth;
 			expensesMonthOutput.value = appData.expensesMonth;
 			addExpensesValue.value = appData.addExpenses.join(', ');
-			console.log(budgetDayOutput.value, budgetMonthOutput.value, expensesMonthOutput.value );
+			addIncomeValue.value = appData.addIncome.join(', ');
+			console.log(addIncomeValue.value );
 		},
 
 		//methdd: add extra input by pushing button 'plus' -- lesson11
@@ -111,6 +112,15 @@ let	isNumber = function(n) {
 				if (item !== '') {
 					item = item.trim();
 					appData.addExpenses.push(item);
+				}
+			});
+		},
+
+		getAddIncome: function(){
+			additionalIncomeItems.forEach(function(item){
+				let itemValue = item.value.trim();
+				if (itemValue !== ''){
+					appData.addIncome.push(itemValue);
 				}
 			});
 		},
