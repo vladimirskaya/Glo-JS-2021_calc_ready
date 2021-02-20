@@ -292,8 +292,7 @@ AppData.prototype.getInfoDeposit = function(){
 
 		//ф. расчет накоплений за период
 AppData.prototype.calcPeriod = function(){
-			//console.log(this.getStatusIncome());
-			console.log('calcPeriod  : this = ', this);
+			//console.log('calcPeriod  : this = ', this);
 			return this.budgetMonth * periodSelect.value;
 		};
 	
