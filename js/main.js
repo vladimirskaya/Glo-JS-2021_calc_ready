@@ -125,10 +125,10 @@ let	isNumber = function(n) {
 			btnStart.style.display = 'initial';
 			btnCancel.style.display = 'none';	
 			for (let i = 0; i < incomeItems.length - 1; i ++) {
-				incomeItems[i].remove();
+				incomeItems[i].parentNode.removeChild(incomeItems[i]);
 			};
 			for (let i = 0; i < expensesItems.length - 1; i ++) {
-				expensesItems[i].remove();
+				expensesItems[i].parentNode.removeChild(expensesItems[i]);
 			};
 			
 			btnExpensesPlus.disabled = false;
