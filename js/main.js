@@ -28,6 +28,9 @@ let salaryAmount = document.querySelector('.salary-amount'),				// месячн�
     
 	incomeTitle = document.querySelector('.income-title'), // добавлены из видео Практика 11 урока: div с заголовком "Дополнительный доход"
 	expensesTitle = document.querySelector('.expenses-title'); // добавлены из видео Практика 11 урока: div с заголовком "Обязательные расходы"
+ let expenses = document.querySelector('.expenses');
+ 
+ 
  //Функция, проверяет является ли введенное значение числом
 let	isNumber = function(n) {
 		return !isNaN(parseFloat(n)) && isFinite(n);
@@ -91,7 +94,7 @@ let	isNumber = function(n) {
 			btnIncomesPlus.disabled = true;
 			
 		} else {
-			btnStart.disabled = true;
+			btnStart.disabled = false;
 			alert("Введите месячный доход.");
 			salaryAmount.value = '';
 			return;
@@ -111,34 +114,30 @@ let	isNumber = function(n) {
 			this.deposit = false;
 			this.procentDeposit =  0;
 			this.moneyDeposit =  0;
-			console.log('incomeItems : ',incomeItems);
+			//console.log('incomeItems : ',incomeItems);
 			//Сброс введных данных по форме
 			let allInputForms = document.querySelectorAll('input[type=text]'),		// все интупы кроме кнопок
-				dataInputForms = document.querySelectorAll('.data input[type=text]');	// все инпуты с входными данными
+				dataInputForms = document.querySelectorAll('.data input[type=text]'),	// все инпуты с входными данными
+				expensesItems = document.querySelectorAll('.expenses-items'); 		
 			allInputForms.forEach(function(item) {item.value = '';});
 			dataInputForms.forEach(function(item){item.disabled = false;});
 			btnStart.disabled = false;
 			btnStart.style.display = 'initial';
 			btnCancel.style.display = 'none';	
-			//console.log('incomeItems до кнопки резет ', incomeItems);
 			for (let i = 0; i < incomeItems.length - 1; i ++) {
 				incomeItems[i].remove();
-				//incomeItems - удалить элемент
 			};
-			//console.log('incomeItems после кнопки резет ', incomeItems);
-			//console.log('expensesItems до кнопки резет ', incomeItems);
 			for (let i = 0; i < expensesItems.length - 1; i ++) {
 				expensesItems[i].remove();
-				//expensesItemsудалить элемент
 			};
-			//console.log('expensesItems до кнопки резет ', incomeItems);
+			
 			btnExpensesPlus.disabled = false;
 			btnIncomesPlus.disabled = false;
 			btnIncomesPlus.style.display = 'initial';
 			btnExpensesPlus.style.display = 'initial';
 			periodSelect.value = 1 ;
 			periodAmount.innerHTML = 1;
-		},
+   },
 		
 		showResult: function(){
 			budgetMonthOutput.value = this.budgetMonth;  			// доход за месяц
@@ -181,8 +180,12 @@ let	isNumber = function(n) {
 
 		//ф.: добавляет дополнительный блок для ввода ДОПОЛНИТЕЛЬНЫХ расходов
 		addIncomeBlock: function(){
-			let cloneIncomeItem = incomeItems[0].cloneNode(true);
-			let children = [];
+			
+			incomeItems = document.querySelectorAll('.income-items');
+			btnIncomesPlus = document.getElementsByTagName('button')[0];
+			
+			let cloneIncomeItem = incomeItems[0].cloneNode(true),
+				children = [];
 				for (let child of cloneIncomeItem.children) {
 					child.value = '';
 				}			
@@ -196,8 +199,6 @@ let	isNumber = function(n) {
 				
 		//ф.  получение данных по ОБЯЗАТЕЛЬНЫМ расходам  и занесение их в объект
 		getExpenses: function(){
-			console.log("incomeItems",incomeItems);
-			console.log("expensesItems",expensesItems);
 			expensesItems.forEach(function(item){
 				let itemExpenses = item.querySelector('.expenses-title').value;
 				let cashExpenses = item.querySelector('.expenses-amount').value;
@@ -209,11 +210,16 @@ let	isNumber = function(n) {
 
 		//ф. добавляется дополнительный блок для ввода ОБЯЗАТЕЛЬНЫХ расходов
 		addExpensesBlock: function(){
-			let cloneExpensesItem = expensesItems[0].cloneNode(true);	
-			let children = [];
+			
+			expensesItems = document.querySelectorAll('.expenses-items');
+			btnExpensesPlus = document.getElementsByTagName('button')[1];
+			
+			let cloneExpensesItem = expensesItems[0].cloneNode(true),	
+				children = [];
 			for (let child of cloneExpensesItem.children) {
 				child.value = '';
-			}			
+			}	
+			//console.log("expensesItems[0] is connnected ^" , expensesItems[0].isConnected);
 			expensesItems[0].parentNode.insertBefore(cloneExpensesItem, btnExpensesPlus);
 			expensesItems = document.querySelectorAll('.expenses-items');
 			if (expensesItems.length === 3) {
@@ -254,7 +260,7 @@ let	isNumber = function(n) {
 
 		//ф. вывод информации для пользователя
 		getStatusIncome: function(){		
-			console.log('getStatusIncome  : this = ', this);
+			//console.log('getStatusIncome  : this = ', this);
 			if (this.budgetDay >= 1200) {
 				return("У вас высокий уровень дохода");
 			} else if ((this.budgetDay >= 600) && (this.budgetDay < 1200)) {
