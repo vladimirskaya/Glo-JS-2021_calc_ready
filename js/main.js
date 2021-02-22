@@ -1,6 +1,6 @@
 'use strict';
 
-let salaryAmount = document.querySelector('.salary-amount'),				// месячный доход
+const salaryAmount = document.querySelector('.salary-amount'),				// месячный доход
 	incomeItems = document.querySelectorAll('.income-items'),				// дополнительные доходЫ
 	btnIncomesPlus = document.getElementsByTagName('button')[0],			// кнопка - добавить поле для ввода по допдоходам
 	addIncomesItems = document.querySelectorAll('.additional_income-item'), // возможные доходЫ
@@ -32,7 +32,7 @@ let salaryAmount = document.querySelector('.salary-amount'),				// месячн�
  
  
  //Функция, проверяет является ли введенное значение числом
-let	isNumber = function(n) {
+const	isNumber = function(n) {
 		return !isNaN(parseFloat(n)) && isFinite(n);
     },
 	//Функция, проверяет является ли число больше нуля
@@ -70,23 +70,20 @@ class AppData {   // задаем класс
 		this.procentD =  0
 		this.moneyDeposit = 0 
 		this.period = 0
-		console.log('создаем экземпляр')
 	}
 
 	start(){
 		if (isNumberValid(salaryAmount.value)){
-			console.log('start()  : ',this);
+			//console.log('start()  : ',this);
 			this.budget = salaryAmount.value;	// присвоить свойству appData.budget введеное значение из формы
 			this.getExInc();					// 					appData.incomeMonth
-			//this.getAddExInc();				//					appData.addIncome
 			this.getAddIncome();					//					appData.expenses
 			this.getAddExpenses();				//					appData.addExpenses
-			//this.getExpensesMonth();			//					appData.expensesMonth
 			this.getBudget();					//					appData.budgetMonth, appData.budgetDay
 			this.showResult();
 			
 			dataInputForms = document.querySelectorAll('.data input[type=text]');
-			dataInputForms.forEach(function(item) {item.disabled = true; })
+			dataInputForms.forEach(function(item) {item.disabled = true; });
 			btnStart.style.display = 'none';
 			btnCancel.style.display = 'initial';
 			btnExpensesPlus.disabled = true;
@@ -113,11 +110,12 @@ class AppData {   // задаем класс
 			this.deposit = false;
 			this.procentDeposit =  0;
 			this.moneyDeposit =  0;
-			//console.log('incomeItems : ',incomeItems);
+			
 			//Сброс введных данных по форме
-			let allInputForms = document.querySelectorAll('input[type=text]'),		// все интупы кроме кнопок
+			const allInputForms = document.querySelectorAll('input[type=text]'),		// все интупы кроме кнопок
 				dataInputForms = document.querySelectorAll('.data input[type=text]'),	// все инпуты с входными данными
-				expensesItems = document.querySelectorAll('.expenses-items'); 		
+				expensesItems = document.querySelectorAll('.expenses-items'); 
+
 			allInputForms.forEach(function(item) {item.value = '';});
 			dataInputForms.forEach(function(item){item.disabled = false;});
 			btnStart.disabled = false;
@@ -147,8 +145,7 @@ class AppData {   // задаем класс
 			addExpensesValue.value = this.addExpenses.join(', ');	// возможные расходы
 			targetMonthValue.value = this.getTargetMonth();			// накопления за период
 			
-			let findIncPerValue = function(){
-				//console.log('this  = ', this);  - this -- это undefined потому что это просто функция в методе, ничего более.  
+			const findIncPerValue = function(){
 				incomePeriodValue.value = _this.calcPeriod();		// срок достижения цели в месяцах
 			};
 			findIncPerValue(); 										// расчет поля incomePeriodValue.value на 1 раз
@@ -183,11 +180,11 @@ class AppData {   // задаем класс
 
 	//ф.: добавляет дополнительный блок для ввода ДОПОЛНИТЕЛЬНЫХ расходов
 	addIncomeBlock(){
-			
+		
 			incomeItems = document.querySelectorAll('.income-items');
 			btnIncomesPlus = document.getElementsByTagName('button')[0];
 			
-			let cloneIncomeItem = incomeItems[0].cloneNode(true),
+			const cloneIncomeItem = incomeItems[0].cloneNode(true),
 				children = [];
 				for (let child of cloneIncomeItem.children) {
 					child.value = '';
@@ -233,7 +230,7 @@ class AppData {   // задаем класс
 	getAddExpenses(){
 		const _this = this;
 		let addExpenses = additionalExpensesItem.value.split(',');
-		console.log(addExpenses);
+		//console.log(addExpenses);
 		addExpenses.forEach(function(item) {
 			console.log('item = ', item);
 			if (item !== '') {
