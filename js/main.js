@@ -3,7 +3,7 @@
 let salaryAmount = document.querySelector('.salary-amount'),				// месячный доход
 	incomeItems = document.querySelectorAll('.income-items'),				// дополнительные доходЫ
 	btnIncomesPlus = document.getElementsByTagName('button')[0],			// кнопка - добавить поле для ввода по допдоходам
-	addIncomeS = document.querySelectorAll('.additional_income-item'), // возможные доходЫ
+	addIncomesItems = document.querySelectorAll('.additional_income-item'), // возможные доходЫ
 	expensesItems = document.querySelectorAll('.expenses-items'), 			// обязательные расходы
 	btnExpensesPlus = document.getElementsByTagName('button')[1],			// кнопка - добавить поле для ввода по допдоходам
 	//additionalExpenses = document.querySelector('.additional_expenses'),	// это div "Возможные расходы"
@@ -78,13 +78,14 @@ class AppData {   // задаем класс
 			console.log('start()  : ',this);
 			this.budget = salaryAmount.value;	// присвоить свойству appData.budget введеное значение из формы
 			this.getExInc();					// 					appData.incomeMonth
-			this.getAddExInc();				//					appData.addIncome
-			//this.getExpenses();					//					appData.expenses
-			//this.getAddExpenses();				//					appData.addExpenses
+			//this.getAddExInc();				//					appData.addIncome
+			this.getAddIncome();					//					appData.expenses
+			this.getAddExpenses();				//					appData.addExpenses
 			//this.getExpensesMonth();			//					appData.expensesMonth
 			this.getBudget();					//					appData.budgetMonth, appData.budgetDay
 			this.showResult();
 			
+			dataInputForms = document.querySelectorAll('.data input[type=text]');
 			dataInputForms.forEach(function(item) {item.disabled = true; })
 			btnStart.style.display = 'none';
 			btnCancel.style.display = 'initial';
@@ -169,21 +170,18 @@ class AppData {   // задаем класс
 					
 		incomeItems.forEach(count);
 		expensesItems.forEach(count);
-		console.log(this.income, this.expenses);
-		
-		//переделать			
+		//console.log(this.income, this.expenses);
+		//переделать потом			
 		for (let key in this.income){
 			this.incomeMonth += this.income[key]
 		}
+	
 		for (let key in this.expenses){
-			this.expenses += this.expenses[key]
-		}				
+			this.expensesMonth += this.expenses[key]; 
+		}
 	}
 
-	
-
-
-		//ф.: добавляет дополнительный блок для ввода ДОПОЛНИТЕЛЬНЫХ расходов
+	//ф.: добавляет дополнительный блок для ввода ДОПОЛНИТЕЛЬНЫХ расходов
 	addIncomeBlock(){
 			
 			incomeItems = document.querySelectorAll('.income-items');
@@ -220,28 +218,32 @@ class AppData {   // задаем класс
 			}
 		}
 		
-		//ф.  получение данных по ВОЗМОЖНЫМ расходам и занесение их в объект
-	getAddExInc(){
-			const _this = this;
-			let i = 0;
-			let count = (item) => {
-				i ++ ;
-				console.log('getAddExInc : ',i, item)
-				const startStr = item.className.split('_')[1].split('-')[0];
-				startStr = 'add' + startStr[0].toUpperCase + arr.slice(1);
-				console.log('создаем строку для возможных расходов и доходв: ',startStr)
-				if (item !== '') {
-					let itemValue = item.trim();
-					this[startStr].push(itemValue);    // _this.expenses[itemExpenses] = cashExpenses;    _this.incomeMonth += +cashIncome;
-				} 
-			};
-
-			let addExpenseS = additionalExpensesItem.value.split();
-			console.log(addExpenseS, addIncomeS);
-			//addExpenses.forEach(count);
-			[...addIncomeS].forEach(count);	
+		//ф.  получение данных по ВОЗМОЖНЫМ доходам и занесение их в объект
+	getAddIncome(){
+		const _this = this;
+		addIncomesItems.forEach(function(item){
+			let itemValue = item.value.trim();
+			if (itemValue !== ''){
+				_this.addIncome.push(itemValue);
+			}
+		});	
 	}
-		//ф. высчитывает свойства: бюджет на месяц и на день
+
+		//ф.  получение данных по ВОЗМОЖНЫМ расходам и занесение их в объект
+	getAddExpenses(){
+		const _this = this;
+		let addExpenses = additionalExpensesItem.value.split(',');
+		console.log(addExpenses);
+		addExpenses.forEach(function(item) {
+			console.log('item = ', item);
+			if (item !== '') {
+				item = item.trim();
+				_this.addExpenses.push(item);
+			}
+		});		
+	}
+	
+	//ф. высчитывает свойства: бюджет на месяц и на день
 	getBudget(){ 						
 			//console.log('getBudget  : _this = ', this);
 			appData.budgetMonth = this.budget - this.expensesMonth + this.incomeMonth;
