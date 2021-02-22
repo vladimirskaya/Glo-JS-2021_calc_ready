@@ -140,7 +140,6 @@ class AppData {   // задаем класс
    }
 		
    	showResult(){
-			//const _this = this;
 			budgetMonthOutput.value = this.budgetMonth;  			// доход за месяц
 			budgetDayOutput.value = this.budgetDay;					// дневной бюджет
 			expensesMonthOutput.value = this.expensesMonth; 		// расход за месяц			
@@ -164,7 +163,7 @@ class AppData {   // задаем класс
 			const itemTitle = item.querySelector(`.${startStr}-title`).value; 
 			const itemAmount = item.querySelector(`.${startStr}-amount`).value;
 			if (itemTitle !== '' && itemAmount !== '') {
-				this[startStr][itemTitle] = + itemAmount;    // _this.expenses[itemExpenses] = cashExpenses;    _this.incomeMonth += +cashIncome;
+				this[startStr][itemTitle] = + itemAmount;    
 			} 
 		};
 					
@@ -220,7 +219,6 @@ class AppData {   // задаем класс
 		
 		//ф.  получение данных по ВОЗМОЖНЫМ доходам и занесение их в объект
 	getAddIncome(){
-		const _this = this;
 		addIncomesItems.forEach((item) => {
 			let itemValue = item.value.trim();
 			if (itemValue !== ''){
@@ -243,7 +241,6 @@ class AppData {   // задаем класс
 	
 	//ф. высчитывает свойства: бюджет на месяц и на день
 	getBudget(){ 						
-			//console.log('getBudget  : _this = ', this);
 			appData.budgetMonth = this.budget - this.expensesMonth + this.incomeMonth;
 			this.budgetDay = Math.floor(this.budgetMonth / 30);
 		}
