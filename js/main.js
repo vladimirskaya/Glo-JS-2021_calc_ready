@@ -1,6 +1,6 @@
 'use strict';
 
-const salaryAmount = document.querySelector('.salary-amount'),				// месячный доход
+let salaryAmount = document.querySelector('.salary-amount'),				// месячный доход
 	incomeItems = document.querySelectorAll('.income-items'),				// дополнительные доходЫ
 	btnIncomesPlus = document.getElementsByTagName('button')[0],			// кнопка - добавить поле для ввода по допдоходам
 	addIncomesItems = document.querySelectorAll('.additional_income-item'), // возможные доходЫ
@@ -8,7 +8,7 @@ const salaryAmount = document.querySelector('.salary-amount'),				// месяч�
 	btnExpensesPlus = document.getElementsByTagName('button')[1],			// кнопка - добавить поле для ввода по допдоходам
 	//additionalExpenses = document.querySelector('.additional_expenses'),	// это div "Возможные расходы"
 	additionalExpensesItem = document.querySelector('.additional_expenses-item'), // это input "Возможные расходы"
-    flagDeposit  = document.querySelector('#deposit-check'),				// флажок, что есть депозит
+	depositCheck  = document.querySelector('#deposit-check'),				// флажок, что есть депозит
     targetAmount = document.querySelector('.target-amount'),			 	// цель: сколько нужно накопить 
 	periodSelect = document.querySelector('.period-select'),				// range период расчета	
 	periodAmount = document.querySelector('.period-amount'),				// цифра по range
@@ -30,30 +30,6 @@ const salaryAmount = document.querySelector('.salary-amount'),				// месяч�
 	expensesTitle = document.querySelector('.expenses-title'), // добавлены из видео Практика 11 урока: div с заголовком "Обязательные расходы"
  	expenses = document.querySelector('.expenses');
  
- 
- //Функция, проверяет является ли введенное значение числом
-const	isNumber = function(n) {
-		return !isNaN(parseFloat(n)) && isFinite(n);
-    },
-	//Функция, проверяет является ли число больше нуля
-	isNumberValid = function(x){
-		  if (isNumber(x)) {
-			return (parseFloat(x) > 0);
-		  }
-	},
-	//Функция, проверяет является ли строка валидной
-	isValidString = function(s){
-		if (s){
-			if (isNumber(s)) {
-				return false;
-			} else {
-				s = s.trim();
-				return s ; 
-			}
-		} else {
-			return false;
-		}
-	};
 
 class AppData {   // задаем класс 
 	constructor(){
@@ -72,8 +48,35 @@ class AppData {   // задаем класс
 		this.period = 0
 	}
 
+ 
+ 	//Функция, проверяет является ли введенное значение числом
+ 	isNumber(n) {
+		return !isNaN(parseFloat(n)) && isFinite(n);
+	}
+
+	//Функция, проверяет является ли число больше нуля
+	isNumberValid(x){
+	  	if (this.isNumber(x)) {
+			return (parseFloat(x) > 0);
+	  	}
+	}
+	
+	//Функция, проверяет является ли строка валидной
+	isValidString(s){
+		if (s){
+			if (this.isNumber(s)) {
+				return false;
+			} else {
+				s = s.trim();
+				return s ; 
+			}
+		} else {
+			return false;
+		}
+	}
+
 	start(){
-		if (isNumberValid(salaryAmount.value)){
+		if (this.isNumberValid(salaryAmount.value)){
 			//console.log('start()  : ',this);
 			this.budget = salaryAmount.value;	// присвоить свойству appData.budget введеное значение из формы
 			this.getExInc();					// 					appData.incomeMonth
@@ -83,7 +86,7 @@ class AppData {   // задаем класс
 			this.showResult();
 			
 			dataInputForms = document.querySelectorAll('.data input[type=text]');
-			dataInputForms.forEach(function(item) {item.disabled = true; });
+			dataInputForms.forEach((item) => {item.disabled = true; });
 			btnStart.style.display = 'none';
 			btnCancel.style.display = 'initial';
 			btnExpensesPlus.disabled = true;
@@ -116,8 +119,8 @@ class AppData {   // задаем класс
 				dataInputForms = document.querySelectorAll('.data input[type=text]'),	// все инпуты с входными данными
 				expensesItems = document.querySelectorAll('.expenses-items'); 
 
-			allInputForms.forEach(function(item) {item.value = '';});
-			dataInputForms.forEach(function(item){item.disabled = false;});
+			allInputForms.forEach((item) => {item.value = '';});
+			dataInputForms.forEach((item) => {item.disabled = false;});
 			btnStart.disabled = false;
 			btnStart.style.display = 'initial';
 			btnCancel.style.display = 'none';	
@@ -136,8 +139,8 @@ class AppData {   // задаем класс
 			periodAmount.innerHTML = 1;
    }
 		
-   showResult(){
-			const _this = this;
+   	showResult(){
+			//const _this = this;
 			budgetMonthOutput.value = this.budgetMonth;  			// доход за месяц
 			budgetDayOutput.value = this.budgetDay;					// дневной бюджет
 			expensesMonthOutput.value = this.expensesMonth; 		// расход за месяц			
@@ -145,8 +148,8 @@ class AppData {   // задаем класс
 			addExpensesValue.value = this.addExpenses.join(', ');	// возможные расходы
 			targetMonthValue.value = this.getTargetMonth();			// накопления за период
 			
-			const findIncPerValue = function(){
-				incomePeriodValue.value = _this.calcPeriod();		// срок достижения цели в месяцах
+			const findIncPerValue = () => {
+				incomePeriodValue.value = this.calcPeriod();		// срок достижения цели в месяцах
 			};
 			findIncPerValue(); 										// расчет поля incomePeriodValue.value на 1 раз
 			periodSelect.removeEventListener('input', findIncPerValue, false); // удаление предыдущего обработчика события
@@ -218,24 +221,22 @@ class AppData {   // задаем класс
 		//ф.  получение данных по ВОЗМОЖНЫМ доходам и занесение их в объект
 	getAddIncome(){
 		const _this = this;
-		addIncomesItems.forEach(function(item){
+		addIncomesItems.forEach((item) => {
 			let itemValue = item.value.trim();
 			if (itemValue !== ''){
-				_this.addIncome.push(itemValue);
+				this.addIncome.push(itemValue);
 			}
 		});	
 	}
 
 		//ф.  получение данных по ВОЗМОЖНЫМ расходам и занесение их в объект
 	getAddExpenses(){
-		const _this = this;
 		let addExpenses = additionalExpensesItem.value.split(',');
 		//console.log(addExpenses);
-		addExpenses.forEach(function(item) {
-			console.log('item = ', item);
+		addExpenses.forEach((item) => {
 			if (item !== '') {
 				item = item.trim();
-				_this.addExpenses.push(item);
+				this.addExpenses.push(item);
 			}
 		});		
 	}
@@ -290,6 +291,14 @@ class AppData {   // задаем класс
 	changeRange(){
 			periodAmount.innerHTML = periodSelect.value;
 		}
+
+		depositHandler(){
+			if (depositCheck.checked){
+
+			}else {
+				
+			}
+		}
 	
 	eventListeners(){
 	//console.log('this in eventListener^ ',this);
@@ -303,7 +312,9 @@ class AppData {   // задаем класс
 			console.log("Цель будет достигнута за ", this.getTargetMonth(), "месяцев(-а)");
 		} else {
 		console.log(this.getStatusIncome());
-		}			
+		}	
+		
+		depositCheck.addEventListener('change', this.depositHandler.bind(this));
 	}
 };
 
