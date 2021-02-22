@@ -13,7 +13,11 @@ let salaryAmount = document.querySelector('.salary-amount'),				// месячн�
 	periodSelect = document.querySelector('.period-select'),				// range период расчета	
 	periodAmount = document.querySelector('.period-amount'),				// цифра по range
 	dataInputForms = document.querySelectorAll('.data input[type=text]'),
-	
+	depositBank = document.querySelector('.deposit-bank'),
+	depositAmount = document.querySelector('.deposit-amount'),
+	depositPercent = document.querySelector('.deposit-percent'),
+
+
 	btnStart = document.getElementById('start'),
 	btnCancel = document.getElementById('cancel'),
     
@@ -81,7 +85,8 @@ class AppData {   // задаем класс
 			this.budget = salaryAmount.value;	// присвоить свойству appData.budget введеное значение из формы
 			this.getExInc();					// 					appData.incomeMonth
 			this.getAddIncome();					//					appData.expenses
-			this.getAddExpenses();				//					appData.addExpenses
+			this.getAddExpenses();	
+			this.getInfoDeposit();			//					appData.addExpenses
 			this.getBudget();					//					appData.budgetMonth, appData.budgetDay
 			this.showResult();
 			
@@ -124,12 +129,32 @@ class AppData {   // задаем класс
 			btnStart.disabled = false;
 			btnStart.style.display = 'initial';
 			btnCancel.style.display = 'none';	
-			for (let i = 0; i < incomeItems.length - 1; i ++) {
+			let divIncome = document.querySelector('.income');
+			let divExpenses = document.querySelector('.expenses');
+
+			for (let i = divIncome.childElementCount - 1; i > 1; i--){
+				if (divIncome.children[i].tagName === 'DIV' && divIncome.children[i].localName === 'div'){
+					divIncome.children[i].remove();
+				}
+ 				//console.log(incomeItems.length);
+
+			}
+			for (let i = divExpenses.childElementCount - 1; i > 1; i--){
+				if (divExpenses.children[i].tagName === 'DIV' && divExpenses.children[i].localName === 'div'){
+console.log(divExpenses.children[i]);
+
+					divExpenses.children[i].remove();
+				}
+ 				//console.log(incomeItems.length);
+
+			}
+
+			/*for (let i = 0; i < incomeItems.length - 1; i ++) {
 				incomeItems[i].parentNode.removeChild(incomeItems[i]);
 			}
 			for (let i = 0; i < expensesItems.length - 1; i ++) {
 				expensesItems[i].parentNode.removeChild(expensesItems[i]);
-			}
+			}*/
 			
 			btnExpensesPlus.disabled = false;
 			btnIncomesPlus.disabled = false;
@@ -267,15 +292,17 @@ class AppData {   // задаем класс
 		//ф. получение данных по депозитам
 	getInfoDeposit(){
 			if (this.deposit){
-				do {
-					this.procentDeposit = parseFloat(prompt("Какой годовой процент", 10));
+		
+					this.procentDeposit = depositPercent.value;
+					this.moneyDeposit = depositAmount.value; 
+					//depositBank.addEventListener('change', this.changePerson);
 					//console.log("!isNumberValid(this.procentDeposit - ", !isNumberValid(this.procentDeposit));
-				} while (!isNumberValid(this.procentDeposit));
 				do {
 					this.moneyDeposit = prompt("Какая сумма заложена?", 10000);
 					//console.log("!isNumberValid(this.moneyDeposit - ", !isNumberValid(this.moneyDeposit));
 				} while (!isNumberValid(this.moneyDeposit));	
 			}
+
 		}
 
 		//ф. расчет накоплений за период
@@ -289,11 +316,25 @@ class AppData {   // задаем класс
 			periodAmount.innerHTML = periodSelect.value;
 		}
 
-		depositHandler(){
-			if (depositCheck.checked){
+	changePerson(){
+		const selectIndex = this;
+		console.log(select);
+	}
 
+
+	depositHandler(){
+			if (depositCheck.checked){
+				depositBank.style.display = 'inline-block';
+				depositAmount.style.display = 'inline-block'; 
+				this.deposit = true;
+				depositBank.addEventListener('change', this.changePerson);
 			}else {
-				
+				depositBank.style.display = 'none';
+				depositAmount.style.display = 'none';
+				depositAmount = '';
+				depositBank.value = '';
+				this.deposit = false;
+				depositBank.removeEventListener('change', this.changePerson);
 			}
 		}
 	
