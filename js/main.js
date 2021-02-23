@@ -33,7 +33,7 @@ let salaryAmount = document.querySelector('.salary-amount'), // месячный
 	incomeTitle = document.querySelector('.income-title'), // добавлены из видео Практика 11 урока: div с заголовком "Дополнительный доход"
 	expensesTitle = document.querySelector('.expenses-title'), // добавлены из видео Практика 11 урока: div с заголовком "Обязательные расходы"
 	expenses = document.querySelector('.expenses'),
-	bindGetPercentValue;
+	// bindGetPercentValue;
 	depositCheck.checked = false;
 
 class AppData { // задаем класс 
@@ -156,6 +156,31 @@ class AppData { // задаем класс
 
 
 		}
+		//console.log(incomeItems.length);
+
+		btnExpensesPlus.disabled = false;
+		btnIncomesPlus.disabled = false;
+		btnIncomesPlus.style.display = 'initial';
+		btnExpensesPlus.style.display = 'initial';
+		periodSelect.value = 1;
+		periodAmount.innerHTML = 1;
+	}
+
+	showResult() {
+		budgetMonthOutput.value = this.budgetMonth; // доход за месяц
+		budgetDayOutput.value = this.budgetDay; // дневной бюджет
+		expensesMonthOutput.value = this.expensesMonth; // расход за месяц			
+		addIncomeValue.value = this.addIncome.join(', '); // возможные доходы
+		addExpensesValue.value = this.addExpenses.join(', '); // возможные расходы
+		targetMonthValue.value = this.getTargetMonth(); // накопления за период
+
+		const findIncPerValue = () => {
+			incomePeriodValue.value = this.calcPeriod(); // срок достижения цели в месяцах
+		};
+		findIncPerValue(); // расчет поля incomePeriodValue.value на 1 раз
+		periodSelect.removeEventListener('input', findIncPerValue, false); // удаление предыдущего обработчика события
+		periodSelect.addEventListener('input', findIncPerValue); // расчет поля incomePeriodValue.value на последующие разы (добавляется обрабочик)
+	}
 
 		depositCheck.checked = false;
 		this.depositHandler();	
@@ -250,10 +275,10 @@ class AppData { // задаем класс
 	getAddIncome() {
 		addIncomesItems.forEach((item) => {
 			let itemValue = item.value.trim();
-			if (itemValue !== ''){
+			if (itemValue !== '') {
 				this.addIncome.push(itemValue);
 			}
-		});	
+		});
 	}
 
 	//ф.  получение данных по ВОЗМОЖНЫМ расходам и занесение их в объект
@@ -378,9 +403,6 @@ getPercentValue(){
 			depositBank.removeEventListener('change', this.changePercent);
 		}
 	}
-
-
-
 
 
 	eventListeners() {
