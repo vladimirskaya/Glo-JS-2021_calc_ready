@@ -138,6 +138,8 @@ class AppData { // задаем класс
 		btnStart.disabled = false;
 		btnStart.style.display = 'initial';
 		btnCancel.style.display = 'none';
+		depositCheck.disabled = false;
+		depositBank.disabled = false;
 		let divIncome = document.querySelector('.income');
 		let divExpenses = document.querySelector('.expenses');
 
