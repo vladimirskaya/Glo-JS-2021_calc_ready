@@ -99,6 +99,8 @@ class AppData { // задаем класс
 			btnCancel.style.display = 'initial';
 			btnExpensesPlus.disabled = true;
 			btnIncomesPlus.disabled = true;
+			depositCheck.disabled = true;
+			depositBank.disabled = true;
 
 		} else {
 			btnStart.disabled = false;
