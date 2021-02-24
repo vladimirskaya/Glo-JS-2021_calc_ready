@@ -34,7 +34,6 @@ let salaryAmount = document.querySelector('.salary-amount'), // месячный
 	expensesTitle = document.querySelector('.expenses-title'), // добавлены из видео Практика 11 урока: div с заголовком "Обязательные расходы"
 	expenses = document.querySelector('.expenses');
 	let bindCheckPercentValue;
-	// depositCheck.checked = false;
 
 class AppData { // задаем класс 
 	constructor() {
@@ -100,7 +99,6 @@ class AppData { // задаем класс
 			btnCancel.style.display = 'initial';
 			btnExpensesPlus.disabled = true;
 			btnIncomesPlus.disabled = true;
-			depositCheck.disabled = true;
 
 		} else {
 			btnStart.disabled = false;
@@ -167,6 +165,10 @@ class AppData { // задаем класс
 		periodSelect.value = 1;
 		periodAmount.innerHTML = 1;
 		depositCheck.disabled = false;
+		depositCheck.checked = false;
+		this.depositHandler();		
+
+
 	}
 
 	showResult() {
@@ -184,8 +186,6 @@ class AppData { // задаем класс
 		periodSelect.removeEventListener('input', findIncPerValue, false); // удаление предыдущего обработчика события
 		periodSelect.addEventListener('input', findIncPerValue); // расчет поля incomePeriodValue.value на последующие разы (добавляется обрабочик)
 
-
-		depositCheck.checked = false;
 		this.depositHandler();	
 		
 		btnExpensesPlus.disabled = false;
@@ -359,23 +359,21 @@ class AppData { // задаем класс
 }
 
 	depositHandler() {
-		// console.log('this in depositHandler^ ',this);
+		// console.log('вызван depositHandler^ спараметрами: depositCheck.checked =' , depositCheck.checked,'this.deposit = ',this.deposit );
 		if (depositCheck.checked) {
 			depositBank.style.display = 'inline-block';
 			depositAmount.style.display = 'inline-block';
-
 			this.deposit = true;
 			depositBank.addEventListener('change', this.changePercentByBank);
-			
-			// console.log('флажок депозита вкл ');
+			// console.log('флажок депозита вкл, this.deposit = ',this.deposit );
 		} else {
 			depositBank.style.display = 'none';
 			depositAmount.style.display = 'none';
 			depositPercent.style.display = 'none';
 			depositBank.value = '';
 			depositAmount.value = '';
-			this.deposit = false;
 			depositPercent.value = '';
+			this.deposit = false;
 			depositBank.removeEventListener('change', this.changePercentByBank);
 			// console.log('флажок депозита выкл ');			
 		}
@@ -404,3 +402,4 @@ const appData = new AppData();
 
 appData.eventListeners();
 console.log(appData);
+
