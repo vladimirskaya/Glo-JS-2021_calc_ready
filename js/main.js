@@ -210,40 +210,17 @@ class AppData { // задаем класс
 		}
 	}
 
-	//ф.: добавляет дополнительный блок для ввода ДОПОЛНИТЕЛЬНЫХ расходов
-	addIncomeBlock() {
+	//ф. добавляется дополнительный блок для ввода
+	addExpIncBlock(event) {
+		const target = event.target;
+		let par = target.closest('div');
 
-		incomeItems = document.querySelectorAll('.income-items');
-		btnIncomesPlus = document.getElementsByTagName('button')[0];
-
-		const cloneIncomeItem = incomeItems[0].cloneNode(true),
-			children = [];
-		for (let child of cloneIncomeItem.children) {
+		let cloneItem = par.children[1].cloneNode(true);
+		for (let child of cloneItem.children) {
 			child.value = '';
 		}
-		incomeItems[0].parentNode.insertBefore(cloneIncomeItem, btnIncomesPlus);
-		incomeItems = document.querySelectorAll('.income-items');
-		if (incomeItems.length === 3) {
-			btnIncomesPlus.style.display = 'none';
-		}
-	}
-
-	//ф. добавляется дополнительный блок для ввода ОБЯЗАТЕЛЬНЫХ расходов
-	addExpensesBlock() {
-
-		expensesItems = document.querySelectorAll('.expenses-items');
-		btnExpensesPlus = document.getElementsByTagName('button')[1];
-
-		let cloneExpensesItem = expensesItems[0].cloneNode(true),
-			children = [];
-		for (let child of cloneExpensesItem.children) {
-			child.value = '';
-		}
-		//console.log("expensesItems[0] is connnected ^" , expensesItems[0].isConnected);
-		expensesItems[0].parentNode.insertBefore(cloneExpensesItem, btnExpensesPlus);
-		expensesItems = document.querySelectorAll('.expenses-items');
-		if (expensesItems.length === 3) {
-			btnExpensesPlus.style.display = 'none';
+		if (par.children.length === 5) {
+			target.style.display = 'none';
 		}
 	}
 
@@ -348,8 +325,8 @@ class AppData { // задаем класс
 		//console.log('this in eventListener^ ',this);
 		btnStart.addEventListener('click', this.start.bind(this));
 		btnCancel.addEventListener('click', this.reset.bind(this));
-		btnExpensesPlus.addEventListener('click', this.addExpensesBlock);
-		btnIncomesPlus.addEventListener('click', this.addIncomeBlock);
+		btnExpensesPlus.addEventListener('click', this.addExpIncBlock);
+		btnIncomesPlus.addEventListener('click', this.addExpIncBlock);
 		periodSelect.addEventListener('input', this.changeRange);
 
 		if (this.getTargetMonth() > 0) {
